@@ -1,3 +1,5 @@
+import threading
+
 import psycopg2
 
 from storage import postgres
@@ -13,6 +15,7 @@ class User:
 
 class UserDB:
     connection = postgres.conn
+    lock = threading.Lock()
 
     @classmethod
     def create_user_table(cls) -> None:
