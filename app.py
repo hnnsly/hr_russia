@@ -2,8 +2,8 @@ import asyncio
 import logging
 import sys
 import storage
-
-from bot.bot import router, bot
+from bot import bot, router
+from bot import handlers
 
 
 async def main():

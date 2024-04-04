@@ -8,13 +8,14 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS messages (
     name VARCHAR(255) PRIMARY KEY,
-    content TEXT NOT NULL,
-    link TEXT
+    content TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS articles (
     name TEXT PRIMARY KEY,
+    is_job BOOLEAN NOT NULL,
     content TEXT NOT NULL,
+    for_adult BOOLEAN,
     link TEXT
 );
 

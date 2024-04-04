@@ -27,5 +27,8 @@ ENV BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
 # Установка переменной окружения для указания приложению на использование PostgreSQL
 ENV DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
 
+# Копируем SQL-скрипт для инициализации базы данных
+COPY init-db.sql /docker-entrypoint-initdb.d/init-db.sql
+
 # Команда для запуска приложения
 CMD ["python", "app.py"]
