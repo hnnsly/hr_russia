@@ -16,19 +16,25 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем все файлы из текущей директории в /app в контейнере
 COPY . /app/
 
-# Определение переменных окружения для подключения к PostgreSQL
+# токен бота
+ENV BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
 ENV POSTGRES_DB=hr_russia
 ENV POSTGRES_USER=andrey115527
 ENV POSTGRES_PASSWORD=pasik
-ENV POSTGRES_HOST=db
-ENV POSTGRES_PORT=5432
-ENV BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
-
-# Установка переменной окружения для указания приложению на использование PostgreSQL
-ENV DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
+#ENV PGADMIN_LOGIN=admin@admin.com
+#ENV PGADMIN_PASSWORD=root
 
 # Копируем SQL-скрипт для инициализации базы данных
-COPY init-db.sql /docker-entrypoint-initdb.d/init-db.sql
+COPY storage/create-db.sql /docker-entrypoint-initdb.d/create-db.sql
+
+# Копируем папку bot в контейнер
+COPY bot /app/bot
+
+# Копируем папку states в контейнер
+COPY states /app/states
+
+# Копируем папку storage в контейнер
+COPY storage /app/storage
 
 # Команда для запуска приложения
 CMD ["python", "app.py"]
