@@ -38,6 +38,6 @@ INSERT INTO users VALUES ('hnnssssssly',true,'пасхалко 1488 хохохо
 INSERT INTO articles VALUES ('смерть',true,true,'для трупов','google.com');
 INSERT INTO articles VALUES ('рождение',true,false,'для младенцев','pornhub.com');
 
-
+CREATE USER root WITH PASSWORD 'root';
 CREATE USER andrey115527 WITH PASSWORD 'pasik';
-GRANT ALL PRIVILEGES ON DATABASE hr_russia TO andrey11527;
+GRANT ALL PRIVILEGES ON DATABASE hr_russia TO andrey11527,root;

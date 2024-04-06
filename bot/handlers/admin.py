@@ -192,6 +192,7 @@ async def article_link_chosen(message: Message, state: FSMContext):
         text="Отлично, я сохранил твою дрисню, можешь попытаться вызвать ее через жопс (/jobs), если конечно указал, что это работа.\nВы вышли из админ-панели."
     )
     art = await state.get_data()
+    await state.clear()
     complete_article = Article(name=art["article_name"],
                                is_job=art["article_is_job"],
                                for_adult=art["article_for_adult"],
@@ -199,7 +200,6 @@ async def article_link_chosen(message: Message, state: FSMContext):
                                link=art["article_link"]
                                )
     ArticleDB.add_article(complete_article)
-    await state.clear()
 
 
 @router.message(

@@ -11,6 +11,7 @@ services:
       - BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
     networks:
       - postgres
+    restart: unless-stopped
 
   postgres:
     container_name: postgres_container
@@ -33,8 +34,6 @@ services:
       - "temp_file_limit=10GB"
       - "-c"
       - "log_min_duration_statement=200ms"
-      - "-c"
-      - "idle_in_transaction_session_timeout=10s"
       - "-c"
       - "lock_timeout=1s"
       - "-c"
@@ -73,7 +72,6 @@ services:
 
 volumes:
   hr_russia-data:
-  pgadmin-data:
 
 networks:
   postgres:
