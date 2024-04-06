@@ -25,7 +25,7 @@ ENV POSTGRES_PASSWORD=pasik
 #ENV PGADMIN_PASSWORD=root
 
 # Копируем SQL-скрипт для инициализации базы данных
-COPY storage/create-db.sql /docker-entrypoint-initdb.d/create-db.sql
+COPY docker_scritps/create-db.sql /docker-entrypoint-initdb.d/create-db.sql
 
 # Копируем папку bot в контейнер
 COPY bot /app/bot
