@@ -39,6 +39,15 @@ async def enter_admin_panel(message: Message, state: FSMContext):
 
 
 @router.message(
+    lambda message: message.from_user.username in admins,
+    Command("exit")
+)
+async def exit_admin_panel(message: Message, state: FSMContext):
+    await message.answer("Вы вышли из админ-панели.")
+    await state.clear()
+
+
+@router.message(
     AdminState.admin,
     F.text.in_(admin_actions)
 )
