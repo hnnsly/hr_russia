@@ -6,6 +6,7 @@ import os
 #conn = psycopg2.connect("dbname=hr_russia user=postgres password=postgres")
 
 
+
 conn = psycopg2.connect(
     database=os.getenv('POSTGRES_DB'),
     user=os.getenv('POSTGRES_USER'),
