@@ -34,7 +34,7 @@ async def age_chosen_adult(message: Message, state: FSMContext):
         UserDB.add_user(message.from_user.username,True)
 
     await message.answer(
-        text=MessageDB.get_message_by_name("вакансии от 18"),
+        text=MessageDB.get_message_by_name("вакансии от 18").content,
         reply_markup=keyboards.job_adult_reply_markup()
     )
     await state.clear()  # очищаем стейт для дальнейшей работы бота
@@ -53,7 +53,7 @@ async def age_chosen_child(message: Message, state: FSMContext):
         UserDB.add_user(message.from_user.username,False)
 
     await message.answer(
-        text=MessageDB.get_message_by_name("вакансии до 18"),
+        text=MessageDB.get_message_by_name("вакансии до 18").content,
         reply_markup=keyboards.job_child_reply_markup()
     )
     await state.clear()  # очищаем стейт для дальнейшей работы бота
