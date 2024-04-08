@@ -12,7 +12,7 @@ from storage.messages import MessageDB
 from storage.users import UserDB
 
 admin_actions = ["добавить пост", "удалить пост", "изменить сообщение"]
-messages_names = ["start", "help", "вакансии от 18", "вакансии до 18", "нет ответа"]
+messages_names = ["start", "help", "вакансии от 18", "вакансии до 18", "нет ответа","не найден возраст"]
 admin_choose_actions_kb = ReplyKeyboardMarkup(
     keyboard=keyboards.format_keyboard(admin_actions),
     resize_keyboard=True,
