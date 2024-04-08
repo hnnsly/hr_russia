@@ -6,6 +6,7 @@ from aiogram.types import Message
 from bot import router
 from states.user_data_state import BaseState, Age
 from storage import keyboards
+from storage.messages import MessageDB
 from storage.users import UserDB
 
 
@@ -33,7 +34,7 @@ async def age_chosen_adult(message: Message, state: FSMContext):
         UserDB.add_user(message.from_user.username,True)
 
     await message.answer(
-        text="Отлично, вот вакансии для вас:",
+        text=MessageDB.get_message_by_name("вакансии от 18"),
         reply_markup=keyboards.job_adult_reply_markup()
     )
     await state.clear()  # очищаем стейт для дальнейшей работы бота
@@ -51,9 +52,8 @@ async def age_chosen_child(message: Message, state: FSMContext):
     else:
         UserDB.add_user(message.from_user.username,False)
 
-
     await message.answer(
-        text="Отлично, вот вакансии для вас:",
+        text=MessageDB.get_message_by_name("вакансии до 18"),
         reply_markup=keyboards.job_child_reply_markup()
     )
     await state.clear()  # очищаем стейт для дальнейшей работы бота
