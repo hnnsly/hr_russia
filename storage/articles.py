@@ -41,7 +41,7 @@ class ArticleDB:
                 with cls.connection.cursor() as cursor:
                     cursor.execute(
                         "SELECT name FROM articles WHERE is_job = true AND for_adult = true")
-                    names = [i[0].lower() for i in cursor.fetchall()]  # пайтон блядь поэтому ебемся с типами
+                    names = [i[0] for i in cursor.fetchall()]  # пайтон блядь поэтому ебемся с типами
                     return names if names is not None else []
 
         except psycopg2.Error as e:
