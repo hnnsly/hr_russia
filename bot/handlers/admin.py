@@ -12,7 +12,7 @@ from storage.messages import MessageDB
 from storage.users import UserDB
 
 admin_actions = ["добавить пост", "удалить пост", "изменить сообщение"]
-messages_names = ["start", "help", "вакансии от 18", "вакансии до 18", "нет ответа"]
+messages_names = ["start", "help", "вакансии от 18", "вакансии до 18", "нет ответа","не найден возраст"]
 admin_choose_actions_kb = ReplyKeyboardMarkup(
     keyboard=keyboards.format_keyboard(admin_actions),
     resize_keyboard=True,
@@ -40,11 +40,16 @@ async def enter_admin_panel(message: Message, state: FSMContext):
 
 @router.message(
     lambda message: message.from_user.username in admins,
-    Command("exit")
+    Command("admin")
 )
 async def exit_admin_panel(message: Message, state: FSMContext):
-    await message.answer("Вы вышли из админ-панели.")
+    await message.answer(
+        text="Вы вышли из админ панели.",
+        reply_markup=admin_choose_actions_kb
+    )
     await state.clear()
+
+
 
 
 @router.message(

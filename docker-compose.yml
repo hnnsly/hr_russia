@@ -8,7 +8,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
+      - BOT_TOKEN=7105004322:AAGdYwBGI572qYYN54oGrImegluPkeipleg
     networks:
       - postgres
     restart: unless-stopped

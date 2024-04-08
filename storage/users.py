@@ -39,7 +39,7 @@ class UserDB:
                     cursor.execute("SELECT is_adult FROM users WHERE username = %s", (username,))
                     age = cursor.fetchone()
                     if age is not None:
-                        return 30 if age else 20
+                        return 30 if age[0] else 20
                     return False
         except psycopg2.Error as e:
             cls.connection.rollback()
@@ -65,7 +65,7 @@ class UserDB:
 
     @classmethod
     def add_user(cls, username, is_adult) -> bool:
-        if cls.check_user_existance(username):
+        if not cls.check_user_existance(username):
             try:
                 with cls.lock:
                     with cls.connection.cursor() as cursor:
@@ -76,6 +76,8 @@ class UserDB:
                 print("Error adding user:", e)
                 cls.connection.rollback()
                 return False
+        else:
+            cls.change_user_age(username,is_adult)
 
     @classmethod
     def change_user_age(cls, username, is_adult) -> bool:

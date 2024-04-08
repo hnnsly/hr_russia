@@ -17,6 +17,6 @@ class AdminState(StatesGroup):
     agreeing_deleting_article = State()
 
 
-admins = ("hnnssssssly",)
+admins = ("hnnssssssly","SLAVSARMY","JOBHR_RUSSIA")
 
 

@@ -14,7 +14,7 @@ from storage.users import UserDB
     # UserDB.get_user_age(str(F.from_user.username)) == 30 and  # 30 - больше 18 лет
 
     lambda message: UserDB.get_user_age(message.from_user.username) == 30,
-    F.text.lower().in_(("вакансии", "/jobs")),
+    F.text.in_(("Вакансии", "/jobs")),
     StateFilter(None)
 )
 async def send_adult_jobs(message: Message):
@@ -29,7 +29,7 @@ async def send_adult_jobs(message: Message):
     # UserDB.get_user_age(F.from_user.id) == 20 and  # 20 - меньше 18 лет
 
     lambda message: UserDB.get_user_age(message.from_user.username) == 20,
-    F.text.lower() == "вакансии",
+    F.text.in_(("Вакансии","/jobs")),
     StateFilter(None)
 )
 async def send_child_jobs(message: Message):
@@ -42,9 +42,9 @@ async def send_child_jobs(message: Message):
 
 @router.message(
     # UserDB.get_user_age(F.from_user.id) == 30 and
-    # F.text.lower() in ArticleDB.get_adult_jobs_names())
+    # F.text in ArticleDB.get_adult_jobs_names())
 
-    lambda message: UserDB.get_user_age(message.from_user.username) == 30 and message.text.lower() in ArticleDB.get_adult_jobs_names(),
+    lambda message: UserDB.get_user_age(message.from_user.username) == 30 and message.text in ArticleDB.get_adult_jobs_names(),
     StateFilter(None)
 )
 async def send_chosen_adult_job(message: Message):
@@ -57,13 +57,13 @@ async def send_chosen_adult_job(message: Message):
 
 @router.message(
     # UserDB.get_user_age(F.from_user.id) == 30 and
-    # F.text.lower() in ArticleDB.get_adult_jobs_names())
+    # F.text in ArticleDB.get_adult_jobs_names())
 
-    lambda message: UserDB.get_user_age(message.from_user.username) == 20 and message.text.lower() in ArticleDB.get_child_jobs_names(),
+    lambda message: UserDB.get_user_age(message.from_user.username) == 20 and message.text in ArticleDB.get_child_jobs_names(),
     StateFilter(None)
 )
 async def send_chosen_child_job(message: Message):
-    response = ArticleDB.get_article_by_name(message.text.lower())
+    response = ArticleDB.get_article_by_name(message.text)
     await message.answer(
         text=response.content,
         reply_markup=inline_link("Cсылка",response.link) if response.link is not None else None
@@ -71,7 +71,7 @@ async def send_chosen_child_job(message: Message):
 
 # @router.message(
 #     #UserDB.get_user_age(F.from_user.id) == 20 and
-#     #F.text.lower() in ArticleDB.get_adult_jobs_names()
+#     #F.text in ArticleDB.get_adult_jobs_names()
 #     StateFilter(None)
 # )
 # async def send_chosen_child_job(message: Message):
