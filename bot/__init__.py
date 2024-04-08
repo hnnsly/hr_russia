@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher
+import os
 
-bot = Bot("6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ")
-# bot = Bot(os.getenv('BOT_TOKEN'))
+#bot = Bot("6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ")
+bot = Bot(os.getenv('BOT_TOKEN'))
 router = Dispatcher()
