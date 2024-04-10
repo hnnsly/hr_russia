@@ -9,6 +9,10 @@ services:
       - postgres
     environment:
       - BOT_TOKEN=7105004322:AAGdYwBGI572qYYN54oGrImegluPkeipleg
+      # - BOT_TOKEN=6958631398:AAHwdQ9tdS-fiQ2NnFZ9QVyhqCc3JUTRbJQ
+      - POSTGRES_DB=hr_russia
+      - POSTGRES_USER=andrey115527
+      - POSTGRES_PASSWORD=pasik
     networks:
       - postgres
     restart: unless-stopped
