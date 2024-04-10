@@ -32,7 +32,14 @@ message_name_kb = ReplyKeyboardMarkup(
 )
 async def enter_admin_panel(message: Message, state: FSMContext):
     await message.answer(
-        text="вы вошли в админ панель, выберите действие\nи сука не пытайся проверить ее на ошибки, я узнаю это и сломаю тебе ебло, я не делал в каждом действии проверку на еблана, поэтому если ты решишь по приколу хуйнуть куда то пустое сообщение, твой ноут взорвется к хуям, понял меня блять?\nя псих сука",
+        text="вы вошли в админ панель, выберите действие\n"
+             "\nСУКА ВНИМАТЕЛЬНО ВВОДИ ЭТУ ХУЙНЮ"
+             "\nВНИМАТЕЛЬНО ЗНАЧИТ ВНИМАТЕЛЬНО НАХУЙ"
+             "\nза кривой базар и ошибки при использовании я тебе ебало разбью хуесос"
+             "\nЕСЛИ ПРОЕБАЛСЯ ТО ПИШИ /exit"
+             "\nПРИ ЛЮБОМ ПИЗДЕ ЕСЛИ ЧТО ТО ИДЕТ НЕ ТАК ПИШИ /exit"
+             "\nЯ ТЕБЕ НОУТ НАХУЙ СОЖГУ ЕСЛИ ЧТО ТО БУДЕТ НЕ ТАК ТЫ МЕНЯ ПОНЯЛ СУКА"
+             "я псих сука",
         reply_markup=admin_choose_actions_kb
     )
     await state.set_state(AdminState.admin)
@@ -60,14 +67,14 @@ async def action_chosen(message: Message, state: FSMContext):
     if message.text == admin_actions[0]:
         await state.update_data(action="add_article")
         await message.answer(
-            text="Введите название нового поста:"
+            text="Введите НАЗВАНИЕ СУКА НАЗВАНИЕ ПОНИМАЕШЬ нового поста:"
         )
         await state.set_state(AdminState.choosing_article_name)
 
     elif message.text == admin_actions[1]:
         await state.update_data(action="delete_article")
         await message.answer(
-            text="Выберите пост для удаления",
+            text="Выберите пост ДЛЯ УДАЛЕНИЕ УДАЛИТЬ ОНО ИСЧЕЗНЕТ",
             reply_markup=keyboards.all_jobs_reply_markup()
         )
         await state.set_state(AdminState.choosing_article_name)
@@ -76,13 +83,13 @@ async def action_chosen(message: Message, state: FSMContext):
         await state.update_data(action="edit_message")
         await state.set_state(AdminState.choosing_message_name)
         await message.answer(
-            text="Выберите сообщение для редактирования: ",
+            text="Выберите СООБЩЕНИЕ для редактирования: ",
             reply_markup=message_name_kb
         )
 
     else:
         await message.answer(
-            text="Неверный ввод, используйте клавиатуру",
+            text=f"ТУПОРЫЛЫЙ ДОЛБАЕБ ПОД НАЗВАНИЕМ{message.from_user.first_name.upper()}\nНЕВЕРНЫЙ ВВОД БЛЯТЬ НА КНОПКИ НАЖИМАЙ НА КЛАВИАТУРЕ",
             reply_markup=admin_choose_actions_kb
         )
 
@@ -94,10 +101,10 @@ async def message_name_chosen(message: Message, state: FSMContext):
     if message.text in messages_names:
         await state.update_data(message_name=message.text)
         await state.set_state(AdminState.changing_message_content)
-        await message.answer(text="Выберите новое содержание:")
+        await message.answer(text=f"Выберите новое СОДЕРЖАНИЕ БЛЯТЬ ДЛИННЫЙ ТЕКСТ\nС О Д Е Р Ж А Н И Е'{message.text}':")
     else:
         await message.answer(
-            text="Такой кнопки не существует. Попробуйте еще раз.",
+            text=f"ТУПОРЫЛЫЙ ДОЛБАЕБ ПОД НАЗВАНИЕМ{message.from_user.first_name.upper()}\nТАКОЙ КНОПКИ НЕ СУЩЕСТВУЕТ\nВНИМАТЕЛЬНЕЕ БЛЯТЬ",
             reply_markup=message_name_kb
         )
 
@@ -113,7 +120,7 @@ async def message_content_changed(message: Message, state: FSMContext):
     )
     await state.clear()
     await message.answer(
-        text="Успешно! Вы вышли из админ-панели."
+        text=f"Успешно! Вы изменили сообщение '{message_data}', новое содержание - '{message.text}'\nВы вышли из админ-панели."
     )
 
 
@@ -127,7 +134,10 @@ async def article_name_chosen(message: Message, state: FSMContext):
         await state.update_data(article_name=message.text)
         article_data = ArticleDB.get_article_by_name(message.text)
         await message.answer(
-            text=f"Вы уверены, что хотите удалить пост \"{message.text}\"?\n"
+            text=f"ПОСМОТРИ ВНИМАТЕЛЬНО БЛЯТЬ\n"
+                 f"В Н И М А Т Е Л Ь Н О\n"
+                 f"ИЛИ УМРЕТ ТВОЯ МАМАША ЕБЛИВАЯ\n"
+                 f"Вы уверены, что хотите удалить пост \"{message.text}\"?\n"
                  f"Название: {article_data.name}\n"
                  f"Является ли работой: {article_data.is_job}\n"
                  f"Для совершеннолетних: {article_data.for_adult}\n"
@@ -139,7 +149,8 @@ async def article_name_chosen(message: Message, state: FSMContext):
         await state.update_data(article_name=message.text)
         await state.set_state(AdminState.choosing_article_is_job)
         await message.answer(
-            text="Будет ли появляться пост при выводе клавиатуры вакансий?(/jobs)",
+            text="Будет ли появляться пост при выводе клавиатуры вакансий?(/jobs)"
+                 "\nЭТО РАБОТА ИЛИ НЕТ?",
             reply_markup=keyboards.yes_no_reply_markup()
         )
 
@@ -152,7 +163,8 @@ async def article_is_job_chosen(message: Message, state: FSMContext):
         await state.update_data(article_is_job=True)
         await state.set_state(AdminState.choosing_article_for_adult)
         await message.answer(
-            text="Пост для совершеннолетних? (будет показываться только пользователям, указавшим возраст больше 18)",
+            text="Пост для совершеннолетних? (будет показываться только пользователям, указавшим возраст больше 18)"
+                 "\nДЛЯ ВЗРОСЛЫХ ИЛИ НЕТ",
             reply_markup=keyboards.yes_no_reply_markup()
         )
     elif message.text.lower() == "нет":
@@ -160,7 +172,7 @@ async def article_is_job_chosen(message: Message, state: FSMContext):
         await state.set_state(AdminState.choosing_article_for_adult)
     else:
         await message.answer(
-            text="Неверный ввод, попробуйте ещё раз.",
+            text=f"ТУПОРЫЛЫЙ ДОЛБАЕБ ПОД НАЗВАНИЕМ{message.from_user.first_name.upper()}\nНеверный ввод, попробуйте ещё раз.",
             reply_markup=keyboards.yes_no_reply_markup()
         )
 
@@ -173,17 +185,17 @@ async def article_for_adult_chosen(message: Message, state: FSMContext):
         await state.update_data(article_for_adult=True)
         await state.set_state(AdminState.choosing_article_content)
         await message.answer(
-            text="Введи содержание поста (то что будет показываться если его вызвать)"
+            text="Введи СОДЕРЖАНИЕ СУКА\nС О Д Е Р Ж А Н И Е поста (то что будет показываться если его вызвать)"
         )
     elif message.text.lower() == "нет":
         await state.update_data(article_for_adult=False)
         await state.set_state(AdminState.choosing_article_content)
         await message.answer(
-            text="Введи содержание поста (то что будет показываться если его вызвать)"
+            text="Введи СОДЕРЖАНИЕ СУКА\nС О Д Е Р Ж А Н И Е поста (то что будет показываться если его вызвать)"
         )
     else:
         await message.answer(
-            text="Неверный ввод, попробуйте ещё раз.",
+            text=f"ТУПОРЫЛЫЙ ДОЛБАЕБ ПОД НАЗВАНИЕМ{message.from_user.first_name.upper()}\nНеверный ввод, попробуйте ещё раз.",
             reply_markup=keyboards.yes_no_reply_markup()
         )
 
@@ -194,7 +206,7 @@ async def article_for_adult_chosen(message: Message, state: FSMContext):
 async def article_content_chosen(message: Message, state: FSMContext):
     await state.update_data(article_content=message.text)
     await state.set_state(AdminState.choosing_article_link)
-    await message.answer(text="Хорошо, теперь ссылка к содержанию (если не нужна, скажи нет)")
+    await message.answer(text="Хорошо, теперь ССЫЛКА ССЫЛКА БЛЯТЬ к содержанию (если не нужна, скажи нет)")
 
 
 @router.message(
