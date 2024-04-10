@@ -146,13 +146,16 @@ async def article_name_chosen(message: Message, state: FSMContext):
             reply_markup=keyboards.yes_no_reply_markup()
         )
     else:
-        await state.update_data(article_name=message.text)
-        await state.set_state(AdminState.choosing_article_is_job)
-        await message.answer(
-            text="Будет ли появляться пост при выводе клавиатуры вакансий?(/jobs)"
-                 "\nЭТО РАБОТА ИЛИ НЕТ?",
-            reply_markup=keyboards.yes_no_reply_markup()
-        )
+        if message.text.len() < 25:
+            await state.update_data(article_name=message.text)
+            await state.set_state(AdminState.choosing_article_is_job)
+            await message.answer(
+                text="Будет ли появляться пост при выводе клавиатуры вакансий?(/jobs)"
+                     "\nЭТО РАБОТА ИЛИ НЕТ?",
+                reply_markup=keyboards.yes_no_reply_markup()
+            )
+        else:
+            await message.answer(text="ТУПОРЫЛЫЙ ЕБАНАТ НАЗВАНИЕ СКАЗАЛИ БЛЯТЬ")
 
 
 @router.message(
