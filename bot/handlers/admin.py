@@ -198,6 +198,7 @@ async def article_is_job_chosen(message: Message, state: FSMContext):
     if message.text.lower() == "да":
         await state.update_data(article_is_job=True)
         await state.set_state(AdminState.choosing_article_for_adult)
+
         await message.answer(
             text="Пост для совершеннолетних? (будет показываться только пользователям, указавшим возраст больше 18)"
                  "\nДЛЯ ВЗРОСЛЫХ ИЛИ НЕТ",
@@ -206,6 +207,12 @@ async def article_is_job_chosen(message: Message, state: FSMContext):
     elif message.text.lower() == "нет":
         await state.update_data(article_is_job=False)
         await state.set_state(AdminState.choosing_article_for_adult)
+
+        await message.answer(
+            text="Пост для совершеннолетних? (будет показываться только пользователям, указавшим возраст больше 18)"
+                 "\nДЛЯ ВЗРОСЛЫХ ИЛИ НЕТ",
+            reply_markup=keyboards.yes_no_reply_markup()
+        )
     else:
         await message.answer(
             text=f"ТУПОРЫЛЫЙ ДОЛБАЕБ ПОД НАЗВАНИЕМ{message.from_user.first_name.upper()}\nНеверный ввод, попробуйте ещё раз.",
