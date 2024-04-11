@@ -83,3 +83,14 @@ def yes_no_reply_markup():
     )
     return kb
 
+
+def admin_confirm_keyboard(confirmation_keys):
+    kb = ReplyKeyboardMarkup(
+        keyboard=format_keyboard(
+            confirmation_keys
+        ),
+        one_time_keyboard=True,
+        resize_keyboard=True
+    )
+    return kb
+
