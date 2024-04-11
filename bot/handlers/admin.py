@@ -166,7 +166,7 @@ async def article_name_chosen(message: Message, state: FSMContext):
                      f"Вы уверены, что хотите удалить пост \"{message.text}\"?\n"
                      f"Название: {article_data.name}\n"
                      f"Является ли работой: {article_data.is_job}\n"
-                     f"для подтверждения удаления нажмите кнопку {confirmation_key}"
+                     f"для подтверждения нажмите {confirmation_key}"
                      f"Для совершеннолетних: {article_data.for_adult}\n"
                      f"Содержание: {article_data.content}\n"
                      f"Ссылка: {article_data.link if article_data.link is not None else 'пусто'}",
@@ -291,7 +291,7 @@ async def article_link_chosen(message: Message, state: FSMContext):
         text=f"Вы уверены в том, что сделали все правильно и хотите это добавить?\n"
              f"Название - '{art['article_name']}'\n"
              f"Является ли работой - '{art['article_is_job']}'\n"
-             f"для того чтобы подтвердить добавление, нажмите {confirmation_key} на клавиатуре\n"
+             f"чтобы подтвердить, нажмите {confirmation_key} на клавиатуре\n"
              f"Для совершеннолетних - '{art['article_for_adult']}'\n"
              f"Содержание - '{art['article_content']}'"
              f"Ссылка - '{art['article_link']}'",
