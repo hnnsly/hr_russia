@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS messages (
                     );
 
 CREATE TABLE IF NOT EXISTS articles (
-                        name TEXT PRIMARY KEY,
+                        name VARCHAR(255),
                         is_job BOOLEAN NOT NULL,
                         for_adult BOOLEAN NOT NULL,
                         content TEXT,
